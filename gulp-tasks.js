@@ -5,10 +5,13 @@ const reload=require('require-reload')(require);
 const notify=require('gulp-notify');
 const file=require('gulp-file');
 const browserify=require('browserify');
-// can't do this and have to install those modules in clients...
-//const babelify=require('babelify');
-//const babelPresets=[require('babel-preset-es2015-loose')]; // ...because of this module
-//const babelPlugins=[require('babel-plugin-external-helpers-2')];
+const babelify=require('babelify');
+//const babelPresets=[require('babel-preset-es2015-loose')]; // can't use this preset with npm packages
+const babelPlugins=[
+	[require('babel-plugin-transform-es2015-classes'), {loose: true}],
+	[require('babel-plugin-transform-es2015-spread'), {loose: true}],
+	require('babel-plugin-external-helpers-2'),
+];
 const source=require('vinyl-source-stream');
 const buffer=require('vinyl-buffer');
 const sourcemaps=require('gulp-sourcemaps');
@@ -39,9 +42,9 @@ function makeJsTaskFn(gulp,doUglify) {
 			entries: 'src/main.js',
 			debug: true,
 		})
-			.transform('babelify',{
-				presets:['es2015-loose'],
-				plugins:['external-helpers-2'],
+			.transform(babelify,{
+				plugins: babelPlugins,
+				global: true,
 			})
 			.bundle()
 			.on('error',handleErrors)
