@@ -5,6 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": "AntonKhorev/crnx-build",
   "author": "Anton Khorev",
   "license": "ISC",
   "dependencies": {
