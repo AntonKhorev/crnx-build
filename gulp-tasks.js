@@ -16,7 +16,7 @@ const wrapJS=require('gulp-wrap-js');
 const uglify=require('gulp-uglify');
 const less=require('gulp-less');
 const autoprefixer=require('gulp-autoprefixer');
-const minifyCss=require('gulp-minify-css');
+const cssnano=require('gulp-cssnano');
 const mocha=require('gulp-mocha');
 
 const packageJson=JSON.parse(fs.readFileSync('./package.json','utf8'));
@@ -80,7 +80,7 @@ function makeTasks(gulp,pageTitle,cssUrls,jsUrls) {
 			.pipe(less())
 			.on('error',handleErrors)
 			.pipe(autoprefixer())
-			.pipe(minifyCss())
+			.pipe(cssnano())
 			.pipe(sourcemaps.write('.',{
 				sourceRoot: '.'
 			}))
