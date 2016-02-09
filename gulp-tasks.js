@@ -8,9 +8,21 @@ const browserify=require('browserify');
 const babelify=require('babelify');
 //const babelPresets=[require('babel-preset-es2015-loose')]; // can't use this preset with npm packages
 const babelPlugins=[
+	// { enough to run on Firefox 44+ or Chromium:
+	// classes
 	[require('babel-plugin-transform-es2015-classes'), {loose: true}],
-	[require('babel-plugin-transform-es2015-spread'), {loose: true}],
 	require('babel-plugin-external-helpers-2'),
+	// spread operator
+	[require('babel-plugin-transform-es2015-spread'), {loose: true}],
+	// }
+	// { required for IE 11
+	// arrow fns
+	require('babel-plugin-transform-es2015-arrow-functions'),
+	// template strings
+	[require('babel-plugin-transform-es2015-template-literals'), {loose: true}],
+	// object literal extensions
+	require('babel-plugin-transform-es2015-shorthand-properties'),
+	// }
 ];
 const source=require('vinyl-source-stream');
 const buffer=require('vinyl-buffer');
