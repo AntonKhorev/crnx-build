@@ -52,7 +52,6 @@ const uglify=require('gulp-uglify');
 const less=require('gulp-less');
 const autoprefixer=require('gulp-autoprefixer');
 const cssnano=require('gulp-cssnano');
-const mocha=require('gulp-mocha');
 
 const packageJson=JSON.parse(fs.readFileSync('./package.json','utf8'));
 const demoDestination='public_html/en/base';
@@ -129,11 +128,6 @@ function makeTasks(gulp,pageTitle,cssUrls,jsUrls) {
 		gulp.watch(['demos/*'],['html']);
 		gulp.watch(['src/**/*.js'],['js']);
 		gulp.watch(['src/*.less'],['css']);
-	});
-
-	gulp.task('test',()=>{
-		gulp.src('tests/**/*.js')
-			.pipe(mocha());
 	});
 
 	gulp.task('default',['html','css','js']);

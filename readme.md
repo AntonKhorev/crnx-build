@@ -10,7 +10,8 @@
 
 2. If you want to use shorter command-line instructions for building, run with Administrator privileges (for example, by opening a console as Administrator) the following commands:
 ```
-npm install --global gulp-cli
+npm install -g gulp-cli
+npm install -g mocha
 ```
 
 ## Building
@@ -32,6 +33,7 @@ npm run gulp
 ## Extra commands
 
 * `gulp watch` or `npm run gulp -- watch` to automatically rebuild when source code is changed
+* `mocha` or `npm test`
 
 [webgl-starter]: https://github.com/AntonKhorev/webgl-starter
 [webaudio-starter]: https://github.com/AntonKhorev/webaudio-starter
