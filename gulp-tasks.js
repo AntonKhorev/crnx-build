@@ -18,7 +18,7 @@ const babelPlugins=[
 		require('babel-plugin-transform-es2015-block-scoped-functions'),
 		// regexp u flag
 		require('babel-plugin-transform-es2015-unicode-regex'),
-	// required for IE 11
+	// required for IE 11:
 		// arrow fns
 		require('babel-plugin-transform-es2015-arrow-functions'),
 		// template strings
@@ -26,9 +26,23 @@ const babelPlugins=[
 		// object literal extensions
 		require('babel-plugin-transform-es2015-shorthand-properties'),
 		[require('babel-plugin-transform-es2015-computed-properties'), {loose: true}],
-	//
-	// done even if module is not included (?)
+	// satisfies tools like UglifyJS and Firefox 43:
+		// const/let
+		require('babel-plugin-check-es2015-constants'),
+		require('babel-plugin-transform-es2015-block-scoping'),
+	// done even if module is not included (?):
 		require('babel-plugin-transform-es2015-literals'),
+	/*
+	// unused but defined in es2015-loose preset:
+		require('babel-plugin-transform-es2015-function-name'),
+		[require('babel-plugin-transform-es2015-for-of'), {loose: true}],
+		require('babel-plugin-transform-es2015-sticky-regex'),
+		require('babel-plugin-transform-es2015-parameters'),
+		[require('babel-plugin-transform-es2015-destructuring'), {loose: true}],
+		require('babel-plugin-transform-es2015-typeof-symbol'),
+		[require('babel-plugin-transform-es2015-modules-commonjs'), {loose: true}],
+		[require('babel-plugin-transform-regenerator'), {async: false, asyncGenerators: false}],
+	*/
 ];
 const source=require('vinyl-source-stream');
 const buffer=require('vinyl-buffer');
