@@ -20,7 +20,6 @@
     "babel-plugin-transform-es2015-shorthand-properties": "^6.5.0",
     "babel-plugin-transform-es2015-spread": "^6.5.0",
     "babel-plugin-transform-es2015-template-literals": "^6.5.0",
-    "babel-plugin-transform-es2015-unicode-regex": "^6.5.0",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "bundle-collapser": "^1.2.1",

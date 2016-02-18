@@ -17,8 +17,6 @@ const babelPlugins=[
 		[require('babel-plugin-transform-es2015-spread'), {loose: true}],
 		// block-scoped fns
 		require('babel-plugin-transform-es2015-block-scoped-functions'),
-		// regexp u flag
-		require('babel-plugin-transform-es2015-unicode-regex'),
 	// required for IE 11:
 		// arrow fns
 		require('babel-plugin-transform-es2015-arrow-functions'),
@@ -43,6 +41,9 @@ const babelPlugins=[
 		require('babel-plugin-transform-es2015-typeof-symbol'),
 		[require('babel-plugin-transform-es2015-modules-commonjs'), {loose: true}],
 		[require('babel-plugin-transform-regenerator'), {async: false, asyncGenerators: false}],
+	// not implemented in node.js:
+		// regexp u flag
+		require('babel-plugin-transform-es2015-unicode-regex'),
 	*/
 ];
 const source=require('vinyl-source-stream');
