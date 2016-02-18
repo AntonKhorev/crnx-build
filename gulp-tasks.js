@@ -5,6 +5,7 @@ const reload=require('require-reload')(require);
 const notify=require('gulp-notify');
 const file=require('gulp-file');
 const browserify=require('browserify');
+const collapse=require('bundle-collapser/plugin');
 const babelify=require('babelify');
 //const babelPresets=[require('babel-preset-es2015-loose')]; // can't use this preset with npm packages, have to specify plugins by hand
 const babelPlugins=[
@@ -77,6 +78,7 @@ function makeJsTaskFn(gulp,doUglify) {
 				plugins: babelPlugins,
 				global: true,
 			})
+			.plugin(collapse)
 			.bundle()
 			.on('error',handleErrors)
 			.pipe(source(packageJson.name+'.js'))
