@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 
-const fs=require('fs');
+const fs=require('fs')
 
 module.exports=function(packageJson,pageTitle,cssUrls,jsUrls){
-	const templateCss=fs.readFileSync(__dirname+'/template.css','utf8');
-	const allCssUrls=[].concat(cssUrls,['../../lib/'+packageJson.name+'.css']);
-	const allJsUrls=['http://code.jquery.com/jquery-2.1.4.min.js'].concat(jsUrls,['../../lib/'+packageJson.name+'.js']);
+	const templateCss=fs.readFileSync(__dirname+'/template.css','utf8')
+	const allCssUrls=[].concat(cssUrls,['../../lib/'+packageJson.name+'.css'])
+	const allJsUrls=['http://code.jquery.com/jquery-2.1.4.min.js'].concat(jsUrls,['../../lib/'+packageJson.name+'.js'])
 	return [
 		"<!DOCTYPE html>",
 		"<html lang='en'>",
@@ -28,5 +28,5 @@ module.exports=function(packageJson,pageTitle,cssUrls,jsUrls){
 		"<div class='"+packageJson.name+"'>Javascript is disabled. This page requires javascript to function properly.</div>",
 		"</body>",
 		"</html>"
-	].join("\n");
-};
+	].join("\n")
+}

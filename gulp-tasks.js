@@ -1,13 +1,13 @@
-'use strict';
+'use strict'
 
-const fs=require('fs');
-const reload=require('require-reload')(require);
-const notify=require('gulp-notify');
-const file=require('gulp-file');
-const browserify=require('browserify');
-const collapse=require('bundle-collapser/plugin');
-const babelify=require('babelify');
-//const babelPresets=[require('babel-preset-es2015-loose')]; // can't use this preset with npm packages, have to specify plugins by hand
+const fs=require('fs')
+const reload=require('require-reload')(require)
+const notify=require('gulp-notify')
+const file=require('gulp-file')
+const browserify=require('browserify')
+const collapse=require('bundle-collapser/plugin')
+const babelify=require('babelify')
+//const babelPresets=[require('babel-preset-es2015-loose')] // can't use this preset with npm packages, have to specify plugins by hand
 const babelPlugins=[
 	// enough to run on Firefox 44+ or Chromium:
 		// classes
@@ -45,28 +45,28 @@ const babelPlugins=[
 		// regexp u flag
 		require('babel-plugin-transform-es2015-unicode-regex'),
 	*/
-];
-const source=require('vinyl-source-stream');
-const buffer=require('vinyl-buffer');
-const sourcemaps=require('gulp-sourcemaps');
-const wrapJS=require('gulp-wrap-js');
-const uglify=require('gulp-uglify');
-const less=require('gulp-less');
-const autoprefixer=require('gulp-autoprefixer');
-const cssnano=require('gulp-cssnano');
+]
+const source=require('vinyl-source-stream')
+const buffer=require('vinyl-buffer')
+const sourcemaps=require('gulp-sourcemaps')
+const wrapJS=require('gulp-wrap-js')
+const uglify=require('gulp-uglify')
+const less=require('gulp-less')
+const autoprefixer=require('gulp-autoprefixer')
+const cssnano=require('gulp-cssnano')
 
-const packageJson=JSON.parse(fs.readFileSync('./package.json','utf8'));
-const demoDestination='public_html/en/base';
-const libDestination='public_html/lib';
+const packageJson=JSON.parse(fs.readFileSync('./package.json','utf8'))
+const demoDestination='public_html/en/base'
+const libDestination='public_html/lib'
 
 // https://github.com/greypants/gulp-starter/blob/master/gulp/util/handleErrors.js
 function handleErrors() {
-	const args=Array.prototype.slice.call(arguments);
+	const args=Array.prototype.slice.call(arguments)
 	notify.onError({
 		title: "Compile Error",
 		message: "<%= error %>"
-	}).apply(this,args);
-	this.emit('end');
+	}).apply(this,args)
+	this.emit('end')
 }
 
 function makeJsTaskFn(gulp,doUglify) {
@@ -89,15 +89,15 @@ function makeJsTaskFn(gulp,doUglify) {
 			}))
 			.pipe(wrapJS(
 				reload('./babel-helpers-wrapper.js')()
-			));
+			))
 		if (doUglify) {
-			stream=stream.pipe(uglify());
+			stream=stream.pipe(uglify())
 		}
 		stream
 			.pipe(sourcemaps.write('.',{
 				sourceRoot: '.'
 			}))
-			.pipe(gulp.dest(libDestination));
+			.pipe(gulp.dest(libDestination))
 	}
 }
 
@@ -108,8 +108,8 @@ function makeTasks(gulp,pageTitle,cssUrls,jsUrls) {
 			reload('./template.js')(packageJson,pageTitle,cssUrls,jsUrls),
 			{src: true}
 		)
-			.pipe(gulp.dest(demoDestination));
-	});
+			.pipe(gulp.dest(demoDestination))
+	})
 
 	gulp.task('css',()=>{
 		gulp.src('src/'+packageJson.name+'.less')
@@ -121,19 +121,19 @@ function makeTasks(gulp,pageTitle,cssUrls,jsUrls) {
 			.pipe(sourcemaps.write('.',{
 				sourceRoot: '.'
 			}))
-			.pipe(gulp.dest(libDestination));
-	});
+			.pipe(gulp.dest(libDestination))
+	})
 
-	gulp.task('js',makeJsTaskFn(gulp,true));
-	gulp.task('js-no-uglify',makeJsTaskFn(gulp,false));
+	gulp.task('js',makeJsTaskFn(gulp,true))
+	gulp.task('js-no-uglify',makeJsTaskFn(gulp,false))
 
 	gulp.task('watch',()=>{
-		gulp.watch(['demos/*'],['html']);
-		gulp.watch(['src/**/*.js'],['js']);
-		gulp.watch(['src/*.less'],['css']);
-	});
+		gulp.watch(['demos/*'],['html'])
+		gulp.watch(['src/**/*.js'],['js'])
+		gulp.watch(['src/*.less'],['css'])
+	})
 
-	gulp.task('default',['html','css','js']);
+	gulp.task('default',['html','css','js'])
 }
 
-module.exports=makeTasks;
+module.exports=makeTasks
