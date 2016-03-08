@@ -1,6 +1,7 @@
 'use strict'
 
 const fs=require('fs')
+const path=require('path')
 const reload=require('require-reload')(require)
 const notify=require('gulp-notify')
 const file=require('gulp-file')
@@ -115,7 +116,7 @@ function makeTasks(gulp,pageTitle,cssUrls,jsUrls,lessPaths) {
 		gulp.src('src/'+packageJson.name+'.less')
 			.pipe(sourcemaps.init())
 			.pipe(less({
-				paths: lessPaths
+				paths: lessPaths.map(lessPath=>path.dirname(lessPath))
 			}))
 			.on('error',handleErrors)
 			.pipe(autoprefixer())
