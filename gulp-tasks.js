@@ -101,7 +101,7 @@ function makeJsTaskFn(gulp,doUglify) {
 	}
 }
 
-function makeTasks(gulp,pageTitle,cssUrls,jsUrls) {
+function makeTasks(gulp,pageTitle,cssUrls,jsUrls,lessPaths) {
 	gulp.task('html',()=>{
 		return file(
 			'index.html',
@@ -114,7 +114,9 @@ function makeTasks(gulp,pageTitle,cssUrls,jsUrls) {
 	gulp.task('css',()=>{
 		gulp.src('src/'+packageJson.name+'.less')
 			.pipe(sourcemaps.init())
-			.pipe(less())
+			.pipe(less({
+				paths: lessPaths
+			}))
 			.on('error',handleErrors)
 			.pipe(autoprefixer())
 			.pipe(cssnano())
