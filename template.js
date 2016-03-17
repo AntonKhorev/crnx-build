@@ -5,7 +5,7 @@ const fs=require('fs')
 module.exports=function(packageJson,pageTitle,cssUrls,jsUrls){
 	const templateCss=fs.readFileSync(__dirname+'/template.css','utf8')
 	const allCssUrls=[].concat(cssUrls,['../../lib/'+packageJson.name+'.css'])
-	const allJsUrls=['http://code.jquery.com/jquery-2.1.4.min.js'].concat(jsUrls,['../../lib/'+packageJson.name+'.js'])
+	const allJsUrls=['http://code.jquery.com/jquery-2.2.1.min.js'].concat(jsUrls,['../../lib/'+packageJson.name+'.js'])
 	return [
 		"<!DOCTYPE html>",
 		"<html lang='en'>",
