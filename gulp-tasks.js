@@ -57,8 +57,8 @@ const autoprefixer=require('gulp-autoprefixer')
 const cssnano=require('gulp-cssnano')
 
 const packageJson=JSON.parse(fs.readFileSync('./package.json','utf8'))
+const destination='public_html'
 const demoDestination='public_html/en/base'
-const libDestination='public_html/lib'
 
 // https://github.com/greypants/gulp-starter/blob/master/gulp/util/handleErrors.js
 function handleErrors() {
@@ -98,22 +98,33 @@ function makeJsTaskFn(gulp,doUglify) {
 			.pipe(sourcemaps.write('.',{
 				sourceRoot: '.'
 			}))
-			.pipe(gulp.dest(libDestination))
+			.pipe(gulp.dest(`${destination}/lib`))
 	}
 }
 
-function makeTasks(gulp,pageTitle,cssUrls,jsUrls,lessPaths) {
-	gulp.task('html',()=>{
-		return file(
-			'index.html',
-			reload('./template.js')(packageJson,pageTitle,cssUrls,jsUrls),
-			{src: true}
-		)
-			.pipe(gulp.dest(demoDestination))
-	})
+function makeTasks(gulp,pageTitles,cssUrls,jsUrls,lessPaths) {
+	if (typeof pageTitles == 'string') {
+		pageTitles={en:pageTitles}
+	}
+	const langs=[]
+	for (let lang in pageTitles) {
+		langs.push(lang)
+	}
+	for (let lang in pageTitles) {
+		const pageTitle=pageTitles[lang]
+		gulp.task('html-'+lang,()=>{
+			return file(
+				'index.html',
+				reload('./template.js')(packageJson,langs,lang,pageTitle,cssUrls,jsUrls),
+				{src: true}
+			)
+				.pipe(gulp.dest(`${destination}/${lang}/base`))
+		})
+	}
+	gulp.task('html',langs.map(lang=>'html-'+lang))
 
 	gulp.task('css',()=>{
-		gulp.src('src/'+packageJson.name+'.less')
+		gulp.src(`src/${packageJson.name}.less`)
 			.pipe(sourcemaps.init())
 			.pipe(less({
 				paths: lessPaths.map(lessPath=>path.dirname(lessPath))
@@ -124,7 +135,7 @@ function makeTasks(gulp,pageTitle,cssUrls,jsUrls,lessPaths) {
 			.pipe(sourcemaps.write('.',{
 				sourceRoot: '.'
 			}))
-			.pipe(gulp.dest(libDestination))
+			.pipe(gulp.dest(`${destination}/lib`))
 	})
 
 	gulp.task('js',makeJsTaskFn(gulp,true))

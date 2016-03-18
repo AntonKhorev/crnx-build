@@ -2,18 +2,30 @@
 
 const fs=require('fs')
 
-module.exports=function(packageJson,pageTitle,cssUrls,jsUrls){
-	const templateCss=fs.readFileSync(__dirname+'/template.css','utf8')
-	const allCssUrls=[].concat(cssUrls,['../../lib/'+packageJson.name+'.css'])
-	const allJsUrls=['http://code.jquery.com/jquery-2.2.1.min.js'].concat(jsUrls,['../../lib/'+packageJson.name+'.js'])
+module.exports=function(packageJson,langs,lang,pageTitle,cssUrls,jsUrls){
+	const langData={
+		en: {
+			repo: "source code",
+			bugs: "report bugs",
+			nojs: "JavaScript is disabled. This page requires JavaScript to function properly.",
+		},
+		ru: {
+			repo: "исходный код",
+			bugs: "сообщения об ошибках",
+			nojs: "JavaScript отключен. Данной странице требуется JavaScript для нормального функционирования.",
+		},
+	}
+	const templateCss=fs.readFileSync(`${__dirname}/template.css`,'utf8')
+	const allCssUrls=[...cssUrls,`../../lib/${packageJson.name}.css`]
+	const allJsUrls=['http://code.jquery.com/jquery-2.2.1.min.js',...jsUrls,`../../lib/${packageJson.name}.js`]
 	return [
 		"<!DOCTYPE html>",
-		"<html lang='en'>",
+		`<html lang='${lang}'>`,
 		"<head>",
 		"<meta charset='utf-8'>",
-		"<title>"+pageTitle+"</title>",
-		allCssUrls.map(cssUrl=>"<link rel='stylesheet' href='"+cssUrl+"'>").join("\n"),
-		allJsUrls.map(jsUrl=>"<script src='"+jsUrl+"'></script>").join("\n"),
+		`<title>${pageTitle}</title>`,
+		allCssUrls.map(cssUrl=>`<link rel='stylesheet' href='${cssUrl}'>`).join("\n"),
+		allJsUrls.map(jsUrl=>`<script src='${jsUrl}'></script>`).join("\n"),
 		"<style>",
 		templateCss.trim(),
 		"</style>",
@@ -21,11 +33,11 @@ module.exports=function(packageJson,pageTitle,cssUrls,jsUrls){
 		"<body>",
 		"<nav>"+
 		"<ul class='external'>"+
-		"<li><a href='https://github.com/"+packageJson.repository+"'>source code</a></li>"+
-		"<li><a href='"+packageJson.bugs.url+"'>report bugs</a></li>"+
+		`<li><a href='https://github.com/${packageJson.repository}'>${langData[lang].repo}</a></li>`+
+		`<li><a href='${packageJson.bugs.url}'>${langData[lang].bugs}</a></li>`+
 		"</ul>"+
 		"</nav>",
-		"<div class='"+packageJson.name+"'>Javascript is disabled. This page requires javascript to function properly.</div>",
+		`<div class='${packageJson.name}'>${langData[lang].nojs}</div>`,
 		"</body>",
 		"</html>"
 	].join("\n")
