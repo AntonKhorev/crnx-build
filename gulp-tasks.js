@@ -110,6 +110,7 @@ function makeTasks(gulp,pageTitles,cssUrls,jsUrls,lessPaths) {
 	for (let lang in pageTitles) {
 		langs.push(lang)
 	}
+	langs.sort()
 	for (let lang in pageTitles) {
 		const pageTitle=pageTitles[lang]
 		gulp.task('html-'+lang,()=>{
