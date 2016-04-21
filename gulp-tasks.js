@@ -133,6 +133,7 @@ function makeTasks(gulp,pageTitles,cssUrls,jsUrls,lessPaths) {
 			.on('error',handleErrors)
 			.pipe(autoprefixer())
 			.pipe(cssnano())
+			.on('error',handleErrors) // invalid svg can cause an error here
 			.pipe(sourcemaps.write('.',{
 				sourceRoot: '.'
 			}))
