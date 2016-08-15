@@ -13,7 +13,7 @@ const babelPlugins=[
 	// enough to run on Firefox 44+ or Chromium:
 		// classes
 		[require('babel-plugin-transform-es2015-classes'), {loose: true}],
-		require('babel-plugin-external-helpers-2'),
+		require('babel-plugin-external-helpers'),
 		// spread operator
 		[require('babel-plugin-transform-es2015-spread'), {loose: true}],
 		// block-scoped fns
@@ -26,6 +26,10 @@ const babelPlugins=[
 		// object literal extensions
 		require('babel-plugin-transform-es2015-shorthand-properties'),
 		[require('babel-plugin-transform-es2015-computed-properties'), {loose: true}],
+		// destructuring
+		[require('babel-plugin-transform-es2015-destructuring'), {loose: true}],
+		// default (and destructuring) parameters
+		require('babel-plugin-transform-es2015-parameters'),
 	// satisfies tools like UglifyJS and Firefox 43:
 		// const/let
 		require('babel-plugin-check-es2015-constants'),
@@ -37,8 +41,6 @@ const babelPlugins=[
 		require('babel-plugin-transform-es2015-function-name'),
 		[require('babel-plugin-transform-es2015-for-of'), {loose: true}],
 		require('babel-plugin-transform-es2015-sticky-regex'),
-		require('babel-plugin-transform-es2015-parameters'),
-		[require('babel-plugin-transform-es2015-destructuring'), {loose: true}],
 		require('babel-plugin-transform-es2015-typeof-symbol'),
 		[require('babel-plugin-transform-es2015-modules-commonjs'), {loose: true}],
 		[require('babel-plugin-transform-regenerator'), {async: false, asyncGenerators: false}],
