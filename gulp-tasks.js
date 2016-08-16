@@ -30,6 +30,8 @@ const babelPlugins=[
 		[require('babel-plugin-transform-es2015-destructuring'), {loose: true}],
 		// default (and destructuring) parameters
 		require('babel-plugin-transform-es2015-parameters'),
+		// for-of loops
+		require('babel-plugin-transform-for-of-array'),
 	// satisfies tools like UglifyJS and Firefox 43:
 		// const/let
 		require('babel-plugin-check-es2015-constants'),
@@ -39,12 +41,12 @@ const babelPlugins=[
 	/*
 	// unused but defined in es2015-loose preset:
 		require('babel-plugin-transform-es2015-function-name'),
-		[require('babel-plugin-transform-es2015-for-of'), {loose: true}],
+		[require('babel-plugin-transform-es2015-for-of'), {loose: true}], // use babel-plugin-transform-for-of-array instead
 		require('babel-plugin-transform-es2015-sticky-regex'),
 		require('babel-plugin-transform-es2015-typeof-symbol'),
 		[require('babel-plugin-transform-es2015-modules-commonjs'), {loose: true}],
 		[require('babel-plugin-transform-regenerator'), {async: false, asyncGenerators: false}],
-	// not implemented in node.js:
+	// not implemented in node.js: // TODO it's implemented now
 		// regexp u flag
 		require('babel-plugin-transform-es2015-unicode-regex'),
 	*/
