@@ -38,6 +38,9 @@ const babelPlugins=[
 		require('babel-plugin-transform-es2015-block-scoping'),
 	// done even if module is not included (?):
 		require('babel-plugin-transform-es2015-literals'),
+	// additional processing:
+		// remove repeated strict mode directives
+		require('babel-plugin-transform-remove-strict-mode'),
 	/*
 	// unused but defined in es2015-loose preset:
 		require('babel-plugin-transform-es2015-function-name'),
