@@ -19,7 +19,7 @@ module.exports=function(packageJson,langs,lang,pageTitle,cssUrls,jsUrls){
 	}
 	const templateCss=fs.readFileSync(`${__dirname}/template.css`,'utf8')
 	const allCssUrls=[...cssUrls,`../../lib/${packageJson.name}.css`]
-	const allJsUrls=['https://code.jquery.com/jquery-2.2.3.min.js',...jsUrls,`../../lib/${packageJson.name}.js`]
+	const allJsUrls=['https://code.jquery.com/jquery-3.1.0.slim.min.js',...jsUrls,`../../lib/${packageJson.name}.js`]
 	return [
 		"<!DOCTYPE html>",
 		`<html lang=${lang}>`,
