@@ -32,6 +32,8 @@ const babelPlugins=[
 		require('babel-plugin-transform-es2015-parameters'),
 		// for-of loops
 		require('babel-plugin-transform-for-of-array'),
+		// regexp unicode flag
+		require('babel-plugin-transform-es2015-unicode-regex'),
 	// satisfies tools like UglifyJS and Firefox 43:
 		// const/let
 		require('babel-plugin-check-es2015-constants'),
@@ -49,9 +51,6 @@ const babelPlugins=[
 		require('babel-plugin-transform-es2015-typeof-symbol'),
 		[require('babel-plugin-transform-es2015-modules-commonjs'), {loose: true}],
 		[require('babel-plugin-transform-regenerator'), {async: false, asyncGenerators: false}],
-	// not implemented in node.js: // TODO it's implemented now
-		// regexp u flag
-		require('babel-plugin-transform-es2015-unicode-regex'),
 	*/
 ]
 const source=require('vinyl-source-stream')
