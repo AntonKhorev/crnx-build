@@ -10,10 +10,12 @@ const collapse=require('bundle-collapser/plugin')
 const babelify=require('babelify')
 //const babelPresets=[require('babel-preset-es2015-loose')] // can't use this preset with npm packages, have to specify plugins by hand
 const babelPlugins=[
+	// necessary babel setup:
+		// define babel helpers as (almost) global variables
+		require('./babel-plugin-global-helpers'),
 	// enough to run on Firefox 44+ or Chromium:
 		// classes
 		[require('babel-plugin-transform-es2015-classes'), {loose: true}],
-		require('babel-plugin-external-helpers'),
 		// spread operator
 		[require('babel-plugin-transform-es2015-spread'), {loose: true}],
 		// block-scoped fns
@@ -97,7 +99,7 @@ function makeJsTaskFn(gulp,doUglify) {
 				loadMaps: true
 			}))
 			.pipe(wrapJS(
-				reload('./babel-helpers-wrapper.js')()
+				reload('./js-wrapper.js')()
 			))
 		if (doUglify) {
 			stream=stream.pipe(uglify())
