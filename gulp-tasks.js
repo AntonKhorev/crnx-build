@@ -34,6 +34,8 @@ const babelPlugins=[
 		require('babel-plugin-transform-for-of-array'),
 		// regexp unicode flag
 		require('babel-plugin-transform-es2015-unicode-regex'),
+		// Math.sign
+		require('./babel-plugin-transform-math-sign'),
 	// satisfies tools like UglifyJS and Firefox 43:
 		// const/let
 		require('babel-plugin-check-es2015-constants'),
