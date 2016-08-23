@@ -1,10 +1,12 @@
-module.exports = String.prototype.repeat || function(n) {
-	if (
-		(this!=null && this.repeat!==undefined) ||
-		(typeof this !== 'string')
-	) {
-		return this.repeat(n)
-	} else {
-		return Array(n+1).join(this)
+module.exports = function(s){
+	return function(n){
+		if (
+			(s!=null && s.repeat!==undefined) ||
+			(typeof s !== 'string')
+		) {
+			return s.repeat(n)
+		} else {
+			return Array(n+1).join(s)
+		}
 	}
 }

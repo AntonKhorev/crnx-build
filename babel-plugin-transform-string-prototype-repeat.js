@@ -12,12 +12,9 @@ module.exports=({ types: t })=>({
 				) {
 					path.replaceWith(
 						t.callExpression(
-							t.memberExpression(
-								t.callExpression(
-									t.identifier('require'),
-									[t.stringLiteral('crnx-build/babel-helpers/string-prototype-repeat.es5')]
-								),
-								t.identifier('bind')
+							t.callExpression(
+								t.identifier('require'),
+								[t.stringLiteral('crnx-build/babel-helpers/string-prototype-repeat.es5')]
 							),
 							[path.node.object]
 						)
