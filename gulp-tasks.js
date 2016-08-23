@@ -36,8 +36,8 @@ const babelPlugins=[
 		require('babel-plugin-transform-for-of-array'),
 		// regexp unicode flag
 		require('babel-plugin-transform-es2015-unicode-regex'),
-		// Math.sign
-		require('./babel-plugin-transform-math-sign'),
+		// Math methods
+		require('./babel-plugin-transform-math'),
 		// String.prototype.repeat
 		require('./babel-plugin-transform-string-prototype-repeat'),
 	// satisfies tools like UglifyJS and Firefox 43:

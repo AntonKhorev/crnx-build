@@ -1,0 +1,4 @@
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/log10
+module.exports = Math.log10 || function(x){
+	return Math.log(x) / Math.LN10
+}
