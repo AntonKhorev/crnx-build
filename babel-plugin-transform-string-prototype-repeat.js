@@ -3,13 +3,21 @@
 module.exports=({ types: t })=>({
 	visitor: {
 		MemberExpression(path,{file}) {
-			const hasStringTypeDeclaration=(comments)=>(comments && comments.some(
+			const isStringLiteralExpression=(object)=>(
+				t.isBinaryExpression(object,{ operator: '+' }) && (
+					t.isStringLiteral(object.left) || t.isStringLiteral(object.right)
+				)
+			)
+			const hasStringTypeDeclaration=({trailingComments})=>(trailingComments && trailingComments.some(
 				({value})=>(value==':string'))
 			)
+			const object=path.node.object
+			const property=path.node.property
 			if (
-				t.isIdentifier(path.node.property,{ name: 'repeat' }) && (
-					t.isStringLiteral(path.node.object) ||
-					hasStringTypeDeclaration(path.node.object.trailingComments)
+				t.isIdentifier(property,{ name: 'repeat' }) && (
+					t.isStringLiteral(object) ||
+					isStringLiteralExpression(object) ||
+					hasStringTypeDeclaration(object)
 				)
 			) {
 				path.replaceWith(
@@ -18,7 +26,7 @@ module.exports=({ types: t })=>({
 							t.identifier('require'),
 							[t.stringLiteral('crnx-build/babel-helpers/string-prototype-repeat.es5')]
 						),
-						[path.node.object]
+						[object]
 					)
 				)
 			}
