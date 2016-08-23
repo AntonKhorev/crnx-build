@@ -9,8 +9,8 @@ module.exports=({ types: t })=>({
 				)
 			)
 			const hasStringTypeDeclaration=({trailingComments})=>(trailingComments && trailingComments.some(
-				({value})=>(value==':string'))
-			)
+				({value})=>/^\s*:\s*string\s*$/.test(value)
+			))
 			const object=path.node.object
 			const property=path.node.property
 			if (
