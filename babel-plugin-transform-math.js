@@ -15,7 +15,12 @@ module.exports=({ types: t })=>({
 				property.name in mathMethods &&
 				!path.scope.getBindingIdentifier(object.name) // no local binding, it's global
 			) {
-				path.replaceWithSourceString(`require('crnx-build/babel-helpers/math-${property.name}.es5')`) // .es5 to avoid global browserify transforms
+				path.replaceWith(
+					t.callExpression(
+						t.identifier('require'),
+						[t.stringLiteral(`${__dirname}/babel-helpers/math-${property.name}.es5`)] // .es5 to avoid global browserify transforms
+					)
+				)
 			}
 		}
 	},

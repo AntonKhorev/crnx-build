@@ -24,7 +24,7 @@ module.exports=({ types: t })=>({
 					t.callExpression(
 						t.callExpression(
 							t.identifier('require'),
-							[t.stringLiteral('crnx-build/babel-helpers/string-prototype-repeat.es5')]
+							[t.stringLiteral(`${__dirname}/babel-helpers/string-prototype-repeat.es5`)]
 						),
 						[object]
 					)
