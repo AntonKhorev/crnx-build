@@ -1,0 +1,12 @@
+module.exports = function(haystack){
+	return function(needle,start){
+		if (
+			(haystack!=null && haystack.includes!==undefined) ||
+			(typeof haystack !== 'string')
+		) {
+			return haystack.includes(needle,start)
+		} else {
+			return haystack.indexOf(needle,start) !== -1
+		}
+	}
+}

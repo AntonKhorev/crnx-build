@@ -3,6 +3,10 @@
 module.exports=({ types: t })=>({
 	visitor: {
 		MemberExpression(path,{file}) {
+			const stringPrototypeMethods={
+				includes: true,
+				repeat: true,
+			}
 			const isStringLiteralExpression=(object)=>(
 				t.isBinaryExpression(object,{ operator: '+' }) && (
 					t.isStringLiteral(object.left) || t.isStringLiteral(object.right)
@@ -14,7 +18,8 @@ module.exports=({ types: t })=>({
 			const object=path.node.object
 			const property=path.node.property
 			if (
-				t.isIdentifier(property,{ name: 'repeat' }) && (
+				t.isIdentifier(property) &&
+				property.name in stringPrototypeMethods && (
 					t.isStringLiteral(object) ||
 					isStringLiteralExpression(object) ||
 					hasStringTypeDeclaration(object)
@@ -24,7 +29,7 @@ module.exports=({ types: t })=>({
 					t.callExpression(
 						t.callExpression(
 							t.identifier('require'),
-							[t.stringLiteral(`${__dirname}/babel-helpers/string-prototype-repeat.es5`)]
+							[t.stringLiteral(`${__dirname}/babel-helpers/string-prototype-${property.name}.es5`)]
 						),
 						[object]
 					)
