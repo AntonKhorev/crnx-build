@@ -2,7 +2,7 @@ module.exports = function(haystack){
 	return function(needle,start){
 		if (
 			(haystack!=null && haystack.includes!==undefined) ||
-			(typeof haystack !== 'string')
+			!((typeof haystack === 'string') || (Array.isArray(haystack)))
 		) {
 			return haystack.includes(needle,start)
 		} else {

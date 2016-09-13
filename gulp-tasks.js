@@ -38,8 +38,10 @@ const babelPlugins=[
 		require('babel-plugin-transform-es2015-unicode-regex'),
 		// Math methods
 		require('./babel-plugin-transform-math'),
-		// String.prototype.repeat
-		require('./babel-plugin-transform-string-prototype-repeat'),
+		// String.prototype methods
+		require('./babel-plugin-transform-string-prototype'),
+		// Array.prototype methods
+		require('./babel-plugin-transform-array-prototype'),
 	// satisfies tools like UglifyJS and Firefox 43:
 		// const/let
 		require('babel-plugin-check-es2015-constants'),
