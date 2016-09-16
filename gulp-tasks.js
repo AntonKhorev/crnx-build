@@ -106,7 +106,14 @@ function makeJsTaskFn(gulp,doUglify) {
 				reload('./js-wrapper.js')()
 			))
 		if (doUglify) {
-			stream=stream.pipe(uglify())
+			stream=stream.pipe(uglify({
+				compress: {
+					passes: 2,
+				},
+				mangle: {
+					eval: true, // webgl-starter uses eval "safely"
+				},
+			}))
 		}
 		stream
 			.pipe(sourcemaps.write('.',{
