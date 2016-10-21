@@ -127,23 +127,30 @@ function makeTasks(gulp,pageTitles,cssUrls,jsUrls,lessPaths) {
 	if (typeof pageTitles == 'string') {
 		pageTitles={en:pageTitles}
 	}
+	const versions=['base']
+	if (fs.existsSync(`${destination}/lib.old`)) {
+		versions.push('old')
+	}
 	const langs=[]
-	for (let lang in pageTitles) {
+	for (const lang in pageTitles) {
 		langs.push(lang)
 	}
 	langs.sort()
-	for (let lang in pageTitles) {
+	for (const lang of langs) {
 		const pageTitle=pageTitles[lang]
-		gulp.task('html-'+lang,()=>{
-			return file(
-				'index.html',
-				reload('./template.js')(packageJson,langs,lang,pageTitle,cssUrls,jsUrls),
-				{src: true}
-			)
-				.pipe(gulp.dest(`${destination}/${lang}/base`))
-		})
+		for (const version of versions) {
+			gulp.task(`html-${lang}-${version}`,()=>{
+				return file(
+					'index.html',
+					reload('./template.js')(packageJson,langs,lang,versions,version,pageTitle,cssUrls,jsUrls),
+					{src: true}
+				)
+					.pipe(gulp.dest(`${destination}/${lang}/${version}`))
+			})
+		}
+		gulp.task(`html-${lang}`,versions.map(version=>`html-${lang}-${version}`))
 	}
-	gulp.task('html',langs.map(lang=>'html-'+lang))
+	gulp.task('html',langs.map(lang=>`html-${lang}`))
 
 	gulp.task('css',()=>{
 		gulp.src(`src/${packageJson.name}.less`)
